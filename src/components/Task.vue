@@ -1,8 +1,11 @@
 <template>
-  <div :class="['task', task.reminder ? 'reminder' : '']">
+  <div
+    @dblclick="$emit('toggle-reminder', task.id)"
+    :class="['task', task.reminder ? 'reminder' : '']"
+  >
     <h3>
       {{ task.text }}
-      <i class="fas fa-times"></i>
+      <i @click="$emit('delete-task', task.id)" class="fas fa-times"></i>
     </h3>
     <p>{{ task.day }}</p>
   </div>
@@ -14,6 +17,7 @@ export default {
   props: {
     task: Object,
   },
+  emits: ["delete-task", "toggle-reminder"],
 };
 </script>
 
