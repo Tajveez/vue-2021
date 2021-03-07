@@ -3,7 +3,11 @@
     <h1>
       {{ title }}
     </h1>
-    <Button color="green" text="Add Task" />
+    <Button
+      @toggle-form="$emit('toggle-form')"
+      :color="btnColor"
+      :text="btnText"
+    />
   </header>
 </template>
 
@@ -13,6 +17,8 @@ export default {
   name: "Header",
   props: {
     title: String,
+    btnText: String,
+    btnColor: String,
   },
   components: {
     Button,

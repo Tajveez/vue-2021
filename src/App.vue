@@ -1,7 +1,12 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker !!!" />
-    <AddTask @add-task="addTask" />
+    <Header
+      @toggle-form="toggleForm"
+      title="Task Tracker"
+      :btnText="btnText"
+      :btnColor="btnColor"
+    />
+    <AddTask v-if="showForm" @add-task="addTask" />
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -24,9 +29,22 @@ export default {
   data() {
     return {
       tasks: [],
+      showForm: false,
+      btnText: "Add Task",
+      btnColor: "green",
     };
   },
   methods: {
+    toggleForm() {
+      this.showForm = !this.showForm;
+      if (this.showForm) {
+        this.btnText = "Close Form";
+        this.btnColor = "orange";
+      } else {
+        this.btnText = "Add Task";
+        this.btnColor = "green";
+      }
+    },
     deleteTask(id) {
       if (confirm("Are you Sure?"))
         this.tasks = this.tasks.filter((task) => task.id !== id);
